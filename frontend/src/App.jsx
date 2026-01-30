@@ -3,8 +3,19 @@ import { SignInButton } from "@clerk/clerk-react";
 function App() {
   return (
     <>
-      <h1>Hello, World!</h1>
-      <SignInButton mode="modal" />
+      <h1>Welcome to the app</h1>
+
+      <SignedOut>
+        <SignInButton mode="modal">
+          <button>Login</button>
+        </SignInButton>
+      </SignedOut>
+
+      <SignedIn>
+        <SignOutButton />
+      </SignedIn>
+
+      <UserButton />
     </>
   );
 }
