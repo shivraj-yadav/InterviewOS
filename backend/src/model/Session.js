@@ -22,7 +22,7 @@ const SessionSchema = new mongoose.Schema({
   status:{
     type:String,
     enum:["active","completed"],
-    default:"activr",
+    default:"active",
   },
   callId:{
     type:String,
