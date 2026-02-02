@@ -21,6 +21,18 @@ app.use("/api/sessions",sessionRoutes)
 app.use(clerkMiddleware());
 
 //Routes
+app.get("/", (req, res) => {
+  res.json({ 
+    message: "InterviewOS Backend API is running!",
+    status: "ok",
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", backend: "active" });
+});
+
 app.get("/api/inngest/health", (req, res) => {
   res.json({ status: "ok", inngest: "active" });
 });
