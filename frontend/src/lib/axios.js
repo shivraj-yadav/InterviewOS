@@ -12,5 +12,17 @@ const axiosInstance = axios.create({
   withCredentials: false,
 });
 
+// Add request interceptor to debug actual URLs
+axiosInstance.interceptors.request.use(
+  (config) => {
+    console.log("Request URL:", config.baseURL + config.url);
+    console.log("Full config:", config);
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export default axiosInstance;
 
