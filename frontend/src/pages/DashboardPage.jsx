@@ -37,8 +37,19 @@ function DashboardPage() {
       },
       {
         onSuccess: (data) => {
+          console.log("Session creation response:", data);
           setShowCreateModal(false);
-          navigate(`/session/${data.session._id}`);
+          const sessionId = data.session?._id || data._id || data.id;
+          if (sessionId) {
+            navigate(`/session/${sessionId}`);
+          } else {
+            console.error("Session ID not found in response:", data);
+            toast.error("Failed to create session - invalid response");
+          }
+        },
+        onError: (error) => {
+          console.error("Create session error:", error);
+          toast.error(error.response?.data?.message || "Failed to create session");
         },
       },
     );
