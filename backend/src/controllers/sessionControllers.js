@@ -2,9 +2,9 @@ import { chatClient, streamClient } from "../lib/stream.js";
 import Session from "../model/Session.js";
 export async function createSession(req,res){
   try {
-    const [problem , difficulty] = req.body;
+    const { problem, difficulty } = req.body;
     const userId = req.user._id;
-    const clerkId = req.clerkId;
+    const clerkId = req.user.clerkId;
     if(!problem || !difficulty) {
       return res.status(400).json({message:"Missing problem or difficulty"});
     }
@@ -32,13 +32,14 @@ export async function createSession(req,res){
 //chat messaging channel can be created here if needed
 const channel = chatClient.channel("messaging",callId,{
   name:`${problem} Session`,
-  created_by:clerkId,
+  created_by: { id: clerkId },
   members:[clerkId]
 });
 await channel.create();
     res.status(201).json({session});
   } catch (error) {
-    
+    console.error("Error creating session:", error);
+    res.status(500).json({message:"Internal server error"});
   }
 }
 
