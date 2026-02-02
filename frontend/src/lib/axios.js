@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL
-  ? import.meta.env.VITE_API_BASE_URL + "/api"
-  : "/api"; // fallback to relative path if env var is missing
+const baseURL =
+  import.meta.env.VITE_API_BASE_URL?.trim() || "/api"; // fallback if missing
 
 const axiosInstance = axios.create({
   baseURL,
