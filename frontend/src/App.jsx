@@ -13,6 +13,7 @@ import AboutPage from "./pages/AboutPage";
 import ProblemsPage from "./pages/ProblemsPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProblemPage from "./pages/ProblemPage";
+import SessionPage from "./pages/SessionPage";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { Toaster } from "react-hot-toast";
 
@@ -43,6 +44,10 @@ function App() {
         <Route
           path="/problem/:id"
           element={isSignedIn ? <ProblemPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/session/:id"
+          element={isSignedIn ? <SessionPage /> : <Navigate to="/" />}
         />
       </Routes>
       <Toaster toastOptions={{ duration: 3000 }} />
