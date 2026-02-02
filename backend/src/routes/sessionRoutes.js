@@ -4,7 +4,7 @@ import {createSession,getActiveSession,getMyRecentSession,getSessionById,joinSes
 const router = express.Router();
 
 router.post("/",protectRoute,createSession);
-router.post("/active",protectRoute,getActiveSession);
+router.get("/active",protectRoute,getActiveSession);
 router.get("/my-recent",protectRoute,getMyRecentSession);
 
 router.get("/:id",protectRoute,getSessionById);
