@@ -20,6 +20,8 @@
     "inngest": "^3.44.3",
     "mongoose": "^8.19.1",
     "nodemon": "^3.1.11",
-    "stream-chat": "^9.24.0"
+    "stream-chat": "^9.24.0",
+    "ws": "^8.21.0",
+    "y-websocket": "^1.5.4"
   }
 }

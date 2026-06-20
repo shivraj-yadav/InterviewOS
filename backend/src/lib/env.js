@@ -11,6 +11,7 @@ export const ENV = {
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
   CLIENT_URL: process.env.CLIENT_URL,
   INNGEST_SIGNING_KEY: process.env.INNGEST_SIGNING_KEY,
-  INNGEST_EVENT_KEY: process.env.INNGEST_EVENT_KEY
-  
+  INNGEST_EVENT_KEY: process.env.INNGEST_EVENT_KEY,
+  JUDGE0_API_KEY: process.env.JUDGE0_API_KEY,
+  JUDGE0_API_HOST: process.env.JUDGE0_API_HOST || "judge0-ce.p.rapidapi.com"
 };
