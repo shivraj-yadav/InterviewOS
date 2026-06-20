@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { PROBLEMS } from "../problems";
+import { PROBLEMS } from "../data/problems";
 import Navbar from "../components/Navbar";
-import { Group, Panel, Separator } from "react-resizable-panels";
 
+import {
+  Panel,
+  PanelGroup,
+  PanelResizeHandle,
+} from "../components/ResizablePanel";
 import ProblemDescription from "../components/ProblemDescription";
 import OutputPanel from "../components/OutputPanel";
 import CodeEditorPanel from "../components/CodeEditorPanel";
@@ -81,7 +85,7 @@ function ProblemPage() {
     const normalizedActual = normalizeOutput(actualOutput);
     const normalizedExpected = normalizeOutput(expectedOutput);
 
-    return normalizedActual == normalizedExpected;
+    return normalizedActual === normalizedExpected;
   };
 
   const handleRunCode = async () => {
@@ -93,7 +97,6 @@ function ProblemPage() {
     setIsRunning(false);
 
     // check if code executed successfully and matches expected output
-
     if (result.success) {
       const expectedOutput = currentProblem.expectedOutput[selectedLanguage];
       const testsPassed = checkIfTestsPassed(result.output, expectedOutput);
@@ -113,8 +116,8 @@ function ProblemPage() {
     <div className="h-screen bg-base-100 flex flex-col">
       <Navbar />
 
-      <div className="flex-1">
-        <Group direction="horizontal">
+      <div className="flex-1 overflow-hidden">
+        <PanelGroup direction="horizontal">
           {/* left panel- problem desc */}
           <Panel defaultSize={40} minSize={30}>
             <ProblemDescription
@@ -125,11 +128,11 @@ function ProblemPage() {
             />
           </Panel>
 
-          <Separator className="w-2 bg-base-300 hover:bg-primary transition-colors cursor-col-resize" />
+          <PanelResizeHandle className="w-2 bg-base-300 hover:bg-primary transition-colors" />
 
           {/* right panel- code editor & output */}
           <Panel defaultSize={60} minSize={30}>
-            <Group direction="vertical">
+            <PanelGroup direction="vertical">
               {/* Top panel - Code editor */}
               <Panel defaultSize={70} minSize={30}>
                 <CodeEditorPanel
@@ -142,16 +145,15 @@ function ProblemPage() {
                 />
               </Panel>
 
-              <Separator className="h-2 bg-base-300 hover:bg-primary transition-colors cursor-row-resize" />
+              <PanelResizeHandle className="h-2 bg-base-300 hover:bg-primary transition-colors" />
 
               {/* Bottom panel - Output Panel*/}
-
-              <Panel defaultSize={30} minSize={30}>
+              <Panel defaultSize={30} minSize={20}>
                 <OutputPanel output={output} />
               </Panel>
-            </Group>
+            </PanelGroup>
           </Panel>
-        </Group>
+        </PanelGroup>
       </div>
     </div>
   );

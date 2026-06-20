@@ -1,18 +1,39 @@
-function OutputPanel({ output }) {
+function OutputPanel({ output, isRunning = false }) {
   return (
     <div className="h-full bg-base-100 flex flex-col">
-      <div className="px-4 py-2 bg-base-200 border-b border-base-300 font-semibold text-sm">
-        Output
+      <div className="px-4 py-2 bg-base-200 border-b border-base-300 font-semibold text-sm flex items-center justify-between">
+        <span>Output</span>
+        {isRunning ? (
+          <span className="text-xs text-primary animate-pulse">Running...</span>
+        ) : (
+          output?.success &&
+          (output.executionTime || output.memory) && (
+            <div className="flex items-center gap-4 text-xs text-base-content/60">
+              {output.executionTime && <span>⏱️ {output.executionTime}ms</span>}
+              {output.memory && <span>💾 {output.memory}KB</span>}
+            </div>
+          )
+        )}
       </div>
       <div className="flex-1 overflow-auto p-4">
-        {output === null ? (
+        {isRunning ? (
+          <p className="text-base-content/50 text-sm">Executing code...</p>
+        ) : output === null ? (
           <p className="text-base-content/50 text-sm">
             Click "Run Code" to see the output here...
           </p>
         ) : output.success ? (
-          <pre className="text-sm font-mono text-success whitespace-pre-wrap">
-            {output.output}
-          </pre>
+          <div>
+            <pre className="text-sm font-mono text-success whitespace-pre-wrap">
+              {output.output}
+            </pre>
+            {output.executionTime && (
+              <div className="mt-2 text-xs text-base-content/50">
+                Execution time: {output.executionTime}ms
+                {output.memory && ` | Memory: ${output.memory}KB`}
+              </div>
+            )}
+          </div>
         ) : (
           <div>
             {output.output && (
@@ -29,4 +50,5 @@ function OutputPanel({ output }) {
     </div>
   );
 }
+
 export default OutputPanel;
