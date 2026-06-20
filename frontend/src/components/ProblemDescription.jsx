@@ -4,6 +4,7 @@ function ProblemDescription({
   currentProblemId,
   onProblemChange,
   allProblems,
+  isHost,
 }) {
   return (
     <div className="h-full overflow-y-auto bg-base-200">
@@ -27,6 +28,7 @@ function ProblemDescription({
             className="select select-sm w-full"
             value={currentProblemId}
             onChange={(e) => onProblemChange(e.target.value)}
+            disabled={!isHost}
           >
             {allProblems.map((p) => (
               <option key={p.id} value={p.id}>

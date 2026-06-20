@@ -1,6 +1,14 @@
 import Editor from "@monaco-editor/react";
 import { Loader2Icon, PlayIcon } from "lucide-react";
-import { LANGUAGE_CONFIG } from "../problems";
+import { LANGUAGE_CONFIG } from "../data/problems";
+
+const editorOptions = {
+  fontSize: 16,
+  lineNumbers: "on",
+  scrollBeyondLastLine: false,
+  automaticLayout: true,
+  minimap: { enabled: false },
+};
 
 function CodeEditorPanel({
   selectedLanguage,
@@ -9,6 +17,8 @@ function CodeEditorPanel({
   onLanguageChange,
   onCodeChange,
   onRunCode,
+  onEditorMount,
+  isCollaborative = false,
 }) {
   return (
     <div className="h-full bg-base-300 flex flex-col">
@@ -55,16 +65,11 @@ function CodeEditorPanel({
         <Editor
           height={"100%"}
           language={LANGUAGE_CONFIG[selectedLanguage].monacoLang}
-          value={code}
-          onChange={onCodeChange}
           theme="vs-dark"
-          options={{
-            fontSize: 16,
-            lineNumbers: "on",
-            scrollBeyondLastLine: false,
-            automaticLayout: true,
-            minimap: { enabled: false },
-          }}
+          options={editorOptions}
+          value={isCollaborative ? undefined : code}
+          onChange={isCollaborative ? undefined : onCodeChange}
+          onMount={onEditorMount}
         />
       </div>
     </div>
