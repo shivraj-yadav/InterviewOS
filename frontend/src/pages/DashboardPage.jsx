@@ -8,7 +8,7 @@ import {
 } from "../hooks/useSessions";
 
 import Navbar from "../components/Navbar";
-import WelcomeSection from "../components/WelcomeSection.jsx";
+import WelcomeSection from "../components/WelcomeSection";
 import StatsCards from "../components/StatsCards";
 import ActiveSessions from "../components/ActiveSessions";
 import RecentSessions from "../components/RecentSessions";
@@ -37,19 +37,8 @@ function DashboardPage() {
       },
       {
         onSuccess: (data) => {
-          console.log("Session creation response:", data);
           setShowCreateModal(false);
-          const sessionId = data.session?._id || data._id || data.id;
-          if (sessionId) {
-            navigate(`/session/${sessionId}`);
-          } else {
-            console.error("Session ID not found in response:", data);
-            toast.error("Failed to create session - invalid response");
-          }
-        },
-        onError: (error) => {
-          console.error("Create session error:", error);
-          toast.error(error.response?.data?.message || "Failed to create session");
+          navigate(`/session/${data.session._id}`);
         },
       },
     );

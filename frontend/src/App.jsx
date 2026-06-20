@@ -9,7 +9,7 @@ import {
 import { Route, Routes, Navigate } from "react-router";
 
 import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
+
 import ProblemsPage from "./pages/ProblemsPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProblemPage from "./pages/ProblemPage";
@@ -19,12 +19,12 @@ import { Toaster } from "react-hot-toast";
 
 function App() {
   const { isSignedIn, isLoaded } = useUser(); // Replace with actual sign-in state from Clerk
-  
+
   // Show loading state while Clerk is initializing
   if (!isLoaded) {
     return <LoadingSpinner />;
   }
-  
+
   return (
     <>
       <Routes>
@@ -36,7 +36,6 @@ function App() {
           path="/dashboard"
           element={isSignedIn ? <DashboardPage /> : <Navigate to="/" />}
         />
-        <Route path="/about" element={<AboutPage />} />
         <Route
           path="/problems"
           element={isSignedIn ? <ProblemsPage /> : <Navigate to="/" />}

@@ -1,4 +1,3 @@
-
 import axiosInstance from "../lib/axios";
 
 export const sessionApi = {
@@ -27,6 +26,10 @@ export const sessionApi = {
   },
   endSession: async (id) => {
     const response = await axiosInstance.post(`/sessions/${id}/end`);
+    return response.data;
+  },
+  updateSession: async (id, data) => {
+    const response = await axiosInstance.patch(`/sessions/${id}`, data);
     return response.data;
   },
   getStreamToken: async () => {
