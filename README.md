@@ -1,4 +1,4 @@
-# Talent IQ - Collaborative Coding Interview Platform
+# Collaborative Coding Interview Platform
 
 <div align="center">
 
