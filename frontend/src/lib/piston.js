@@ -1,8 +1,12 @@
 export async function executeCode(language, code) {
   try {
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-    
-    const response = await fetch(`${API_URL}/execute`, {
+    // In production VITE_API_URL is the Render base origin (no trailing /api).
+    // In dev the Vite proxy handles /api, so we fall back to the relative path.
+    const API_BASE = import.meta.env.VITE_API_URL
+      ? `${import.meta.env.VITE_API_URL}/api`
+      : "/api";
+
+    const response = await fetch(`${API_BASE}/execute`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

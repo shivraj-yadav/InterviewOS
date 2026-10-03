@@ -18,7 +18,26 @@ const PORT = ENV.PORT;
 
 //Middleware 
 app.use(express.json());
-app.use(cors({origin: ENV.CLIENT_URL,credentials:true}));
+// Support multiple allowed origins via comma-separated CLIENT_URL env var
+// e.g. CLIENT_URL=https://interview-central.vercel.app,http://localhost:5173
+const allowedOrigins = ENV.CLIENT_URL
+  ? ENV.CLIENT_URL.split(",").map((o) => o.trim())
+  : ["http://localhost:5173"];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error(`CORS: origin ${origin} not allowed`));
+    },
+    credentials: true,
+  })
+);
+
 app.use(clerkMiddleware());
 app.use("/api/inngest",serve({client:inngest,functions}));
 app.use("/api/chat",chatRoutes);
